@@ -22,35 +22,35 @@
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="makefile类似于shell脚本，它能让terminal执行一系列的命令，在Linux下写c++时，我们可以用到makefile来帮助我们进行预处理、编译、汇编和链接。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="写给小白看的makefile教程">
-<meta property="og:url" content="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:title" content="写给小白看的makefile教程 gitee图床">
+<meta property="og:url" content="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B%20-%20gitee/index.html">
 <meta property="og:site_name" content="雨O_o寒的个人站">
 <meta property="og:description" content="makefile类似于shell脚本，它能让terminal执行一系列的命令，在Linux下写c++时，我们可以用到makefile来帮助我们进行预处理、编译、汇编和链接。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155500869.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155741023.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155957835.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810160235006.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810162235389.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163145200.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163409428.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000500138.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000514507.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000524762.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000535546.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000545044.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000556738.png">
+<meta property="og:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000603871.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163544235.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810164013746.png">
 <meta property="article:published_time" content="2021-08-14T23:33:31.000Z">
-<meta property="article:modified_time" content="2021-08-14T15:41:29.352Z">
+<meta property="article:modified_time" content="2021-08-14T16:06:19.701Z">
 <meta property="article:author" content="yuhanOvo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155500869.png">
+<meta name="twitter:image" content="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000500138.png">
 
 
-<link rel="canonical" href="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/">
+<link rel="canonical" href="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B%20-%20gitee/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/","path":"2021/08/15/写给小白看的makefile教程/","title":"写给小白看的makefile教程"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B%20-%20gitee/","path":"2021/08/15/写给小白看的makefile教程 - gitee/","title":"写给小白看的makefile教程 gitee图床"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>写给小白看的makefile教程 | 雨O_o寒的个人站</title>
+<title>写给小白看的makefile教程 gitee图床 | 雨O_o寒的个人站</title>
   
 
 
@@ -199,7 +199,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B%20-%20gitee/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars.githubusercontent.com/u/61179725?s=400&u=d258199d10fceaaff7eb1e098b56326b0f7ab4fb&v=4">
@@ -212,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          写给小白看的makefile教程
+          写给小白看的makefile教程 gitee图床
         </h1>
 
         <div class="post-meta-container">
@@ -224,7 +224,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-08-14 23:33:31 / 修改时间：15:41:29" itemprop="dateCreated datePublished" datetime="2021-08-14T23:33:31Z">2021-08-14</time>
+      <time title="创建时间：2021-08-14 23:33:31 / 修改时间：16:06:19" itemprop="dateCreated datePublished" datetime="2021-08-14T23:33:31Z">2021-08-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -268,32 +268,33 @@
 <hr>
 <p>举例子来说明上面的东西：</p>
 <p>在当前所工作的目录下创建文件名为makefile的文件即可，比如：</p>
-<p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155500869.png" alt="image-20210810155500869"></p>
-<p>在makefile里面编辑如下：<br><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155741023.png" alt="image-20210810155741023"></p>
+<p><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000500138.png" alt="image-20210815000500138"></p>
+<p>在makefile里面编辑如下：<br><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000514507.png" alt="image-20210815000514507"></p>
 <p>在terminal中敲入make即可：</p>
-<p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810155957835.png" alt="image-20210810155957835"></p>
+<p><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000524762.png" alt="image-20210815000524762"></p>
 <p>可以看到在敲入make按下回车后，terminal自动帮我执行了 g++ hello.cpp -o hello 这行命令。</p>
-<p>回到makefile文件内容：<br><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810160235006.png" alt="image-20210810160235006"></p>
+<p>回到makefile文件内容：<br><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000535546.png" alt="image-20210815000535546"></p>
 <p>在执行make命令时，系统检查到makefile文件中的第一行内容的目标文件为 hello ，为了生成 hello 这个文件它需要一个依赖文件叫 hello.cpp , 此时它检查到当前目录中存在 hello.cpp ， 那么接下来就只需要执行第二行的命令产生目标文件就可以了。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>makefile会将它首次遇到的目标文件视为<strong>最终目标文件</strong>，如若生成目标文件的依赖文件不存在，则检查是否有其它规则生成此依赖文件。</p>
 <hr>
 <p>这句话什么意思呢，让我们再举例子说明一下：<br>我们重新编辑makefile文件为：</p>
-<p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810162235389.png" alt="image-20210810162235389"></p>
+<p><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000545044.png" alt="image-20210815000545044"></p>
 <p>makefile在第一行读到目标文件 hello ， 这是它第一个读到的目标文件，它将这个目标文件视为它需要生成的最终目标文件，生成hello目标文件需要hello.o的依赖文件。</p>
 <p>可是当前目录并不存在该文件，于是makefile检查是否还有其它规则来生成该依赖文件，读到第三行的时候，makefile发现了有一个规则能生成hello.o文件。</p>
 <p>而生成该hello.o文件的依赖文件为hello.cpp，makefile检查当前目录确实存在hello.cpp文件，于是先执行<code>g++ -c hello.cpp -o hello.o</code>生成hello.o，再执行<code>g++ hello.o -o hello</code> 生成名为hello的最终目标文件。</p>
 <hr>
 <p>此时再读这句话我相信你能理解这句话的含义了。</p>
-<p>那么，如果我将3、4行和1、2行的内容对调，即：<br><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163145200.png" alt="image-20210810163145200"></p>
+<p>那么，如果我将3、4行和1、2行的内容对调，即：<br><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000556738.png" alt="image-20210815000556738"></p>
 <p>会怎么样呢？</p>
 <p>按照makefile的原理，它只会生成到hello.o就结束：</p>
-<p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163409428.png" alt="image-20210810163409428"></p>
+<p><img src="https://gitee.com/yuhanOvo/img/raw/master/img/image-20210815000603871.png" alt="image-20210815000603871"></p>
 <p>makefile肯定有相应的语法来指定这个我们想生成的最终目标文件啦：</p>
 <p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810163544235.png" alt="image-20210810163544235"></p>
 <p>但是，此时指定在最末行这行语句会生效吗？</p>
 <p>答案是<strong>不会</strong>。</p>
 <p>makefile仍然还是会读取最开始遇到的目标文件视为最终目标文件。</p>
 <p>因此，我们将这行指定最终文件的语句放到所有规则的上面，就怎么也不会出问题了：</p>
+<p>github图床👇</p>
 <p><img src="https://raw.githubusercontent.com/n0n1yzh/Img/master/2021/08/image-20210810164013746.png"></p>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2>
     </div>
@@ -308,11 +309,14 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B%20-%20gitee/" rel="prev" title="写给小白看的makefile教程 gitee图床">
-                  <i class="fa fa-chevron-left"></i> 写给小白看的makefile教程 gitee图床
+                <a href="/2021/08/14/%E4%B8%BB%E5%B8%AD%E6%A0%91/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2021/08/15/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/" rel="next" title="写给小白看的makefile教程">
+                  写给小白看的makefile教程 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
