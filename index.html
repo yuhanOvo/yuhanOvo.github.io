@@ -127,7 +127,7 @@
           <div class="site-overview">
             <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="yuhanOvo"
-      src="/images/avatar.jpg">
+      src="/avatar.jpg">
   <p class="site-author-name" itemprop="name">yuhanOvo</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -135,7 +135,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -190,10 +190,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B-gitee/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/avatar.jpg">
       <meta itemprop="name" content="yuhanOvo">
       <meta itemprop="description" content="">
     </span>
@@ -203,7 +203,96 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B-gitee/" class="post-title-link" itemprop="url">写给小白看的makefile教程（入门）</a>
+          <a href="/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">linux-c-基本函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-15 16:55:07" itemprop="dateCreated datePublished" datetime="2021-08-15T16:55:07Z">2021-08-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-17 11:14:36" itemprop="dateModified" datetime="2021-08-17T11:14:36Z">2021-08-17</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">linux学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>open 函数可以打开 pathname 指定的文件，如果这个指定的文件不存在，可以选择创建它（前提是 O_CREAT 在 flags 中指定了），而指定了 O_CREAT 后需要指定第三个参数 mode 。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar.jpg">
+      <meta itemprop="name" content="yuhanOvo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨O_o寒的个人站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">写给小白看的makefile教程（入门）</a>
         </h2>
 
         <div class="post-meta-container">
@@ -246,7 +335,7 @@
           <p>makefile类似于shell脚本，它能让terminal执行一系列的命令，在Linux下写c++时，我们可以用到makefile来帮助我们进行预处理、编译、汇编和链接。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B-gitee/#more" rel="contents">
+              <a class="btn" href="/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
