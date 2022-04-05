@@ -127,7 +127,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: /avatar.jpg
+  url: /images/avatar.jpg
   #url: https://avatars.githubusercontent.com/u/61179725?s=400&u=d258199d10fceaaff7eb1e098b56326b0f7ab4fb&v=4 #/images/avatar.gif
   # If true, the avatar will be dispalyed in circle.
   rounded: false

@@ -1,5 +1,5 @@
 ---
-title: linux-c-基本函数
+title: linux c 基本函数
 date: 2021-08-15 16:55:07
 categories: 
   - linux学习
@@ -19,9 +19,9 @@ tags:
        int open(const char *pathname, int flags, mode_t mode);
 ```
 
-open 函数可以打开 pathname 指定的文件，如果这个指定的文件不存在，可以选择创建它（前提是 O_CREAT 在 flags 中指定了），而指定了 O_CREAT 后需要指定第三个参数 mode 。
-
 <!--more-->
+
+open 函数可以打开 pathname 指定的文件，如果这个指定的文件不存在，可以选择创建它（前提是 O_CREAT 在 flags 中指定了），而指定了 O_CREAT 后需要指定第三个参数 mode 。
 
 其中 flags 定义的宏在 fcntl.h 头文件中。
 
@@ -297,7 +297,7 @@ dup2(fd, STDOUT_FILENO);
 printf("HELLO WORLD");
 ```
 
-![image-20210821195326502](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210821195326502.png)
+![image-20210821195326502](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/linux-c-基本函数/image-20210821195326502.1h80zd76196o.png)
 
 ### 描述
 
@@ -323,7 +323,7 @@ printf("HELLO WORLD");
 
 fork函数用来创建一个子进程。
 
-![image-20210817145349164](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210817145349164.png)
+![image-20210817145349164](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/linux-c-基本函数/image-20210817145349164.3vfbf8e1tka0.png)
 
 ---
 
@@ -594,7 +594,7 @@ mmap() 在调用进程的虚拟地址空间中创建一个新的映射。新映�
 
 文件映射的内容，初始化时使用从文件描述符 *fd* 引用的文件(或其他对象)的偏移量 *offset* 处开始的 *length* 字节大小的映射空间。
 
-![image-20210822022207629](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210822022207629.png)
+![image-20210822022207629](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/linux-c-基本函数/image-20210822022207629.41lugd2750u0.png)
 
 #### prot 参数
 
@@ -632,4 +632,3 @@ mmap() :
 失败时，值 MAP_FAILED （类型为 （void *）-1 ），并设置 errno。
 
 munmap()：
-

@@ -12,9 +12,9 @@ tags:
 
 makefile类似于shell脚本，它能让terminal执行一系列的命令，在Linux下写c++时，我们可以用到makefile来帮助我们进行预处理、编译、汇编和链接。
 
-<!--more-->
-
 下面就来说说如果使用makefile吧~
+
+<!--more-->
 
 ## 规则
 
@@ -41,19 +41,19 @@ makefile类似于shell脚本，它能让terminal执行一系列的命令，在Li
 
 在当前所工作的目录下创建文件名为makefile的文件即可，比如：
 
-![image-20210810155500869](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810155500869.png)
+![image-20210810155500869](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810155500869.2ymjbwx8roc0.png)
 
 在makefile里面编辑如下：
-![image-20210810155741023](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810155741023.png)
+![image-20210810155741023](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810155741023.59ie1n1juqs0.png)
 
 在terminal中敲入make即可：
 
-![image-20210810155957835](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810155957835.png)
+![image-20210810155957835](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810155957835.3u1sfqagx080.png)
 
 可以看到在敲入make按下回车后，terminal自动帮我执行了 g++ hello.cpp -o hello 这行命令。
 
 回到makefile文件内容：
-![image-20210810160235006](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810160235006.png)
+![image-20210810160235006](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810160235006.3v4olf8my8g0.png)
 
 在执行make命令时，系统检查到makefile文件中的第一行内容的目标文件为 hello ，为了生成 hello 这个文件它需要一个依赖文件叫 hello.cpp , 此时它检查到当前目录中存在 hello.cpp ， 那么接下来就只需要执行第二行的命令产生目标文件就可以了。
 
@@ -66,7 +66,7 @@ makefile会将它首次遇到的目标文件视为**最终目标文件**，如�
 这句话什么意思呢，让我们再举例子说明一下：
 我们重新编辑makefile文件为：
 
-![image-20210810162235389](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810162235389.png)
+![image-20210810162235389](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810162235389.6wriil40uug0.png)
 
 makefile在第一行读到目标文件 hello ， 这是它第一个读到的目标文件，它将这个目标文件视为它需要生成的最终目标文件，生成hello目标文件需要hello.o的依赖文件。
 
@@ -79,17 +79,18 @@ makefile在第一行读到目标文件 hello ， 这是它第一个读到的目�
 此时再读这句话我相信你能理解这句话的含义了。
 
 那么，如果我将3、4行和1、2行的内容对调，即：
-![image-20210810163145200](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810163145200.png)
+
+![image-20210810163145200](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810163145200.20oljvyrwleo.png)
 
 会怎么样呢？
 
 按照makefile的原理，它只会生成到hello.o就结束：
 
-![image-20210810163409428](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810163409428.png)
+![image-20210810163409428](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810163409428.3rmndgf17mw0.png)
 
 makefile肯定有相应的语法来指定这个我们想生成的最终目标文件啦：
 
-![image-20210810163544235](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810163544235.png)
+![image-20210810163544235](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810163544235.5ukrcukyhcc0.png)
 
 但是，此时指定在最末行这行语句会生效吗？
 
@@ -99,7 +100,7 @@ makefile仍然还是会读取最开始遇到的目标文件视为最终目标文
 
 因此，我们将这行指定最终文件的语句放到所有规则的上面，就怎么也不会出问题了：
 
-![image-20210810164013746](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210810164013746.png)
+![image-20210810164013746](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210810164013746.3umv04pvueg0.png)
 
 ## 函数
 
@@ -119,7 +120,7 @@ src = $(wildcard *.cpp)
 
 在当前目录下
 
-![image-20210815125345013](https://gitee.com/yuhanOvo/img/raw/master/img/2021/08/image-20210815125345013.png)
+![image-20210815125345013](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/makefile入门教程/image-20210815125345013.1omkhviru8o0.png)
 
 在terminal中输入make，makefile中的 `src = $(wildcard *.cpp)` 会获取到当前目录中后缀为.cpp的文件，在这个例子中，
 

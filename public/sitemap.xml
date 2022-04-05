@@ -2,44 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</loc>
-    
-    <lastmod>2021-08-21</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://example.com/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/</loc>
     
-    <lastmod>2021-08-15</lastmod>
+    <lastmod>2022-04-05</lastmod>
     
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>http://example.com/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/</loc>
     
-    <lastmod>2021-08-15</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://example.com/categories/index.html</loc>
-    
-    <lastmod>2021-08-14</lastmod>
+    <lastmod>2022-04-05</lastmod>
     
   </url>
   
   <url>
     <loc>http://example.com/about/index.html</loc>
     
-    <lastmod>2021-08-14</lastmod>
+    <lastmod>2022-04-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/index.html</loc>
+    
+    <lastmod>2022-04-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/index.html</loc>
+    
+    <lastmod>2022-04-05</lastmod>
     
   </url>
   
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,28 +47,28 @@
   
   <url>
     <loc>http://example.com/tags/linux/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/c/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/c/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/makefile/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -77,7 +77,7 @@
   
   <url>
     <loc>http://example.com/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-08-21</lastmod>
+    <lastmod>2022-04-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
