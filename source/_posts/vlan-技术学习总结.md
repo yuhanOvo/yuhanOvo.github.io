@@ -13,6 +13,8 @@ mathjax: true
 
 划分VLAN是为了隔离广播域，其标准为IEEE 802.1Q。
 
+<!--more-->
+
 ### VLAN标识符
 
 一个VLAN由一个VLAN ID（VLAN Identifier）唯一标识。VLAN ID 简写 VID。
