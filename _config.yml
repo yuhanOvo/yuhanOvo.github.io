@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 雨O_o寒的个人站
+title: 雨寒的个人站
 subtitle: 'Just 4 fun'
 description: ''
 keywords:
@@ -13,7 +13,8 @@ timezone: 'UTC'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+# url: http://example.com
+url: https://www.yuhanovo.xyz
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
