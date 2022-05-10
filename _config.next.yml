@@ -142,7 +142,7 @@ site_state: true
 # Key is the link label showing to end users.
 # Value before `||` delimiter is the target permalink, value after `||` delimiter is the name of Font Awesome icon.
 social:
-  GitHub: https://github.com/yuhanOvo || fab fa-github
+  GitHub: https://github.com/rainchill || fab fa-github
   #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   #Google: https://plus.google.com/yourname || fab fa-google
@@ -257,7 +257,7 @@ reward_settings:
   # If true, a donate button will be displayed in every article by default.
   enable: false
   animation: false
-  comment: 请我喝可乐Ovo
+  comment: 请我喝可乐
 
 reward:
   #wechatpay: /images/wechatpay.png
@@ -398,8 +398,8 @@ bookmark:
 
 # `Follow me on GitHub` banner in the top-right corner.
 github_banner:
-  enable: false
-  permalink: https://github.com/yourname
+  enable: true
+  permalink: https://github.com/rainchill
   title: Follow me on GitHub
 
 
@@ -629,7 +629,7 @@ gitalk:
 # For more information: https://utteranc.es
 utterances:
   enable: true
-  repo: yuhanOvo/Blog-Comment-System # Github repository name
+  repo: rainchill/Blog-Comment-System # Github repository name
   # Available values: pathname | url | title | og:title
   issue_term: pathname
   # Available values: github-light | github-dark | preferred-color-scheme | github-dark-orange | icy-dark | dark-blue | photon-dark | boxy-light

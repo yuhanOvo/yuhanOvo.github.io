@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.yuhanovo.xyz","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="open函数原型1234#include &lt;fcntl.h&gt;      int open(const char *pathname, int flags);      int open(const char *pathname, int flags, mode_t mode);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux c 基本函数">
+<meta property="og:url" content="https://www.yuhanovo.xyz/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="雨寒的个人站">
+<meta property="og:description" content="open函数原型1234#include &lt;fcntl.h&gt;      int open(const char *pathname, int flags);      int open(const char *pathname, int flags, mode_t mode);">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210821195326502.1h80zd76196o.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210817145349164.3vfbf8e1tka0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210822022207629.41lugd2750u0.png">
+<meta property="article:published_time" content="2021-08-15T16:55:07.000Z">
+<meta property="article:modified_time" content="2022-05-10T17:07:11.149Z">
+<meta property="article:author" content="雨寒">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="c">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210821195326502.1h80zd76196o.png">
+
+
+<link rel="canonical" href="https://www.yuhanovo.xyz/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.yuhanovo.xyz/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/","path":"2021/08/16/linux-c-基本函数/","title":"linux c 基本函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>linux c 基本函数 | 雨寒的个人站</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">雨寒的个人站</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Just 4 fun</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">1.</span> <span class="nav-text">open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.3.</span> <span class="nav-text">其它描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#read"><span class="nav-number">2.</span> <span class="nav-text">read</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-1"><span class="nav-number">2.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">2.3.</span> <span class="nav-text">其它描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#write"><span class="nav-number">3.</span> <span class="nav-text">write</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-2"><span class="nav-number">3.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-2"><span class="nav-number">3.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">3.3.</span> <span class="nav-text">其它描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fcntl"><span class="nav-number">4.</span> <span class="nav-text">fcntl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-3"><span class="nav-number">4.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">4.1.1.</span> <span class="nav-text">复制描述符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lseek-%E5%AE%9A%E4%BD%8D%E8%AF%BB-%E5%86%99%E6%96%87%E4%BB%B6%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">lseek - 定位读&#x2F;写文件偏移量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-4"><span class="nav-number">5.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">5.2.</span> <span class="nav-text">描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#whence-%E5%8F%82%E6%95%B0"><span class="nav-number">5.2.1.</span> <span class="nav-text">whence 参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-3"><span class="nav-number">5.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E7%94%A8%E5%A4%84"><span class="nav-number">5.4.</span> <span class="nav-text">一些用处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dup-dup2-dup3-%E5%A4%8D%E5%88%B6%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">6.</span> <span class="nav-text">dup, dup2, dup3 - 复制一个文件描述符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-5"><span class="nav-number">6.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">6.2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-4"><span class="nav-number">6.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AD%90%E8%BF%9B%E7%A8%8B"><span class="nav-number">7.</span> <span class="nav-text">fork - 创建一个子进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-6"><span class="nav-number">7.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">7.2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-5"><span class="nav-number">7.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getpid-getppid-%E8%8E%B7%E5%8F%96%E8%BF%9B%E7%A8%8B%E6%A0%87%E8%AF%86"><span class="nav-number">8.</span> <span class="nav-text">getpid, getppid - 获取进程标识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-7"><span class="nav-number">8.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-3"><span class="nav-number">8.2.</span> <span class="nav-text">描述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exec%E7%B3%BB%E5%88%97-%E6%89%A7%E8%A1%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">exec系列 - 执行一个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-8"><span class="nav-number">9.1.</span> <span class="nav-text">函数原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#l-execl-execlp-execle"><span class="nav-number">9.1.1.</span> <span class="nav-text">l - execl(), execlp(), execle()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-execv-execvp-execvpe"><span class="nav-number">9.1.2.</span> <span class="nav-text">v - execv(), execvp(), execvpe()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#e-execle-execvpe"><span class="nav-number">9.1.3.</span> <span class="nav-text">e - execle(), execvpe()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#p-execlp-execvp-execvpe"><span class="nav-number">9.1.4.</span> <span class="nav-text">p - execlp(), execvp(), execvpe()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-4"><span class="nav-number">9.2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-6"><span class="nav-number">9.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wait-waitpid-waitid-%E7%AD%89%E5%BE%85%E8%BF%9B%E7%A8%8B%E6%94%B9%E5%8F%98%E7%8A%B6%E6%80%81"><span class="nav-number">10.</span> <span class="nav-text">wait, waitpid, waitid - 等待进程改变状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-9"><span class="nav-number">10.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-5"><span class="nav-number">10.2.</span> <span class="nav-text">描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#wait-%E5%92%8C-waitpid"><span class="nav-number">10.2.1.</span> <span class="nav-text">wait 和 waitpid</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pid-%E5%8F%82%E6%95%B0"><span class="nav-number">10.2.1.1.</span> <span class="nav-text">pid 参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#options-%E5%8F%82%E6%95%B0"><span class="nav-number">10.2.1.2.</span> <span class="nav-text">options 参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-7"><span class="nav-number">10.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipe-pipe2-%E5%88%9B%E5%BB%BA%E7%AE%A1%E9%81%93%EF%BC%88%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">pipe, pipe2 - 创建管道（进程间通信）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-10"><span class="nav-number">11.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-6"><span class="nav-number">11.2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-8"><span class="nav-number">11.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mmap-munmap-%E6%98%A0%E5%B0%84%E6%88%96%E5%8F%96%E6%B6%88%E6%98%A0%E5%B0%84%E6%96%87%E4%BB%B6%E6%88%96%E8%AE%BE%E5%A4%87%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD%EF%BC%88%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">mmap, munmap - 映射或取消映射文件或设备到内存中（进程间通信）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8E%9F%E5%9E%8B-11"><span class="nav-number">12.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0-7"><span class="nav-number">12.2.</span> <span class="nav-text">描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prot-%E5%8F%82%E6%95%B0"><span class="nav-number">12.2.1.</span> <span class="nav-text">prot 参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flag-%E5%8F%82%E6%95%B0"><span class="nav-number">12.2.2.</span> <span class="nav-text">flag 参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-9"><span class="nav-number">12.3.</span> <span class="nav-text">返回值</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="雨寒"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">雨寒</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rainchill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rainchill" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.yuhanovo.xyz/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="雨寒">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨寒的个人站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux c 基本函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-15 16:55:07" itemprop="dateCreated datePublished" datetime="2021-08-15T16:55:07Z">2021-08-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-05-10 17:07:11" itemprop="dateModified" datetime="2022-05-10T17:07:11Z">2022-05-10</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">linux学习</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags)</span></span>;</span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">int</span> flags, <span class="keyword">mode_t</span> mode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>open 函数可以打开 pathname 指定的文件，如果这个指定的文件不存在，可以选择创建它（前提是 O_CREAT 在 flags 中指定了），而指定了 O_CREAT 后需要指定第三个参数 mode 。</p>
+<p>其中 flags 定义的宏在 fcntl.h 头文件中。</p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR | O_CREAT, <span class="number">0644</span>);</span><br></pre></td></tr></table></figure>
+
+<p>该语句打开当前目录下的 yuhan.txt 文件，指定打开的权限是可读可写，如果该文件不存在则创建它，创建该文件的权限为 rw-r–r–。</p>
+<p>前面加0，0644代表八进制数。</p>
+<p><strong>如果不创建：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR);</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>该函数返回一个 int 类型的文件描述符（非负整数），搭配 read、write 等函数使用。</p>
+<p>成功调用的返回值是当前未被进程打开的最小的可用的文件描述符。</p>
+<p><strong>如果失败：</strong></p>
+<p>返回 -1 并且设置 errno , errno 是被系统创建的一个用来标识错误的变量，用 perror 输出错误。</p>
+<h3 id="其它描述"><a href="#其它描述" class="headerlink" title="其它描述"></a>其它描述</h3><ul>
+<li><p>默认的该函数返回的文件描述符所打开的文件处于始终打开的状态，可以用 close 函数关闭。</p>
+</li>
+<li><p>参数 flags 必须包含 <strong>O_RDONLY、O_WRONLY、O_RDWR</strong> 中的一个。</p>
+</li>
+<li><p>O_TRUNC 覆盖写</p>
+</li>
+</ul>
+<p>比如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR | O_CREAT | O_TRUNC , <span class="number">0644</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>O_APPEND 追加写</li>
+<li>创建文件 creat 可以用 open 实现，使用 flags ： O_CREAT|O_WRONLY|O_TRUNC </li>
+</ul>
+<p>比较重要的大概就这一些。</p>
+<h2 id="read"><a href="#read" class="headerlink" title="read"></a>read</h2><h3 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">ssize_t</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>read 函数通过文件描述符 fd 读取 count 字节大小的内容到 buf 缓冲区中</p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line">    <span class="comment">// yuhan.txt: &lt;hello i&#x27;am yuhanOvo&gt;</span></span><br><span class="line">    <span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR);</span><br><span class="line">    <span class="keyword">while</span>(read(fd, buf, <span class="number">1024</span>)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; buf: %s&quot;</span>, buf);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;&gt; buf: hello i am yuhanOvo</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>调用成功时，返回读取的字节数（为0时，则表示读到了文件结尾）。并且，下次读取文件的位置被偏移了返回值的大小个字节。也就是第二次 read 会从第一次 read 的结尾处继续读取。</p>
+<p>如果返回的值小于请求的参数 count ， 这不是一个错误，因为剩余可读取的字节数小于 count 的大小是完全有可能的。*或者我们可能在一个管道上读取。其它原因不展开。</p>
+<p>调用失败时，返回 -1 ，并且系统会设置 errno 来指示错误。</p>
+<p>比如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n = read(<span class="number">1000</span>, buf, <span class="number">1024</span>);</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;read error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// &gt;&gt; read error: Bad file descriptor</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="其它描述-1"><a href="#其它描述-1" class="headerlink" title="其它描述"></a>其它描述</h3><p>关于 count 的大小选取，如果比 SSIZE_MAX 大，结果未定义。</p>
+<h2 id="write"><a href="#write" class="headerlink" title="write"></a>write</h2><h3 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">ssize_t</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>write 函数从缓冲区 buf 中读取 count 字节的内容写入文件描述符 fd 所指向的文件中。</p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR | O_TRUNC);</span><br><span class="line"><span class="keyword">char</span> *hello = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">write(fd, hello, <span class="built_in">strlen</span>(hello));</span><br></pre></td></tr></table></figure>
+
+<h3 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h3><p>调用成功时，返回写入的字节数。</p>
+<p>调用失败时，返回 -1，并设置 errno 。</p>
+<p><strong>注意：</strong></p>
+<p>返回的字节数可能小于 count 的大小，可能的原因之一是写入的硬件磁盘的容量不够。</p>
+<h3 id="其它描述-2"><a href="#其它描述-2" class="headerlink" title="其它描述"></a>其它描述</h3><p>暂无</p>
+<h2 id="fcntl"><a href="#fcntl" class="headerlink" title="fcntl"></a>fcntl</h2><h3 id="函数原型-3"><a href="#函数原型-3" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">fcntl</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">int</span> cmd, ... <span class="comment">/* arg */</span> )</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>fcntl 函数用来控制文件描述符</p>
+<p>cmd 可以是各种被设置好的宏，当 cmd 表示为不同的宏时 fcntl 具有不同的功能。</p>
+<h4 id="复制描述符"><a href="#复制描述符" class="headerlink" title="复制描述符"></a>复制描述符</h4><p>F_DUPFD (int类型)</p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;yuhan.txt&quot;</span>, O_RDWR | O_TRUNC);</span><br><span class="line"><span class="keyword">int</span> fd2 = fcntl(fd, F_DUPFD, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>此时 fd2 和 fd 所指向的文件相同。</p>
+<p>注意第三个参数 0 ，代表返回一个大于等于 0 的可用的文件描述符。</p>
+<p>这个函数还不太熟悉。</p>
+<h2 id="lseek-定位读-写文件偏移量"><a href="#lseek-定位读-写文件偏移量" class="headerlink" title="lseek - 定位读/写文件偏移量"></a>lseek - 定位读/写文件偏移量</h2><p>参考： <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/lseek.2.html">https://man7.org/linux/man-pages/man2/lseek.2.html</a></p>
+<h3 id="函数原型-4"><a href="#函数原型-4" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">off_t</span> <span class="title">lseek</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset, <span class="keyword">int</span> whence)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>定位读或者写文件的偏移量。</p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>lseek 函数根据偏移量 <em>offset</em> 和偏移模式 <em>whence</em> 来定位 <em>fd</em> 所关联文件的偏移位置。 </p>
+<h4 id="whence-参数"><a href="#whence-参数" class="headerlink" title="whence 参数"></a>whence 参数</h4><p>SEEK_SET：  从文件开始的位置偏移 <em>offset</em> 个偏移量</p>
+<p>SEEK_CUR：  从文件指针当前挪到的位置偏移 <em>offset</em> 个偏移量</p>
+<p>SEEK_END： 从文件结尾的位置偏移 <em>offset</em> 个偏移量</p>
+<hr>
+<p><em>offset</em> 可以是负数， 表示向左偏移。</p>
+<p>lseek 函数允许偏移量设置在文件的结尾之后，但是这将不会改变文件的大小，只有在偏移之后再写入数据到文件之后，那些偏移了但是还没有填入数据的位置为一个空洞（’\0’）。</p>
+<h3 id="返回值-3"><a href="#返回值-3" class="headerlink" title="返回值"></a>返回值</h3><p>成功时，返回从文件开头到所偏移到的位置一共的偏移量（以字节为单位）。</p>
+<p>失败时，返回 -1， 设置 errno。</p>
+<h3 id="一些用处"><a href="#一些用处" class="headerlink" title="一些用处"></a>一些用处</h3><p>拓展文件大小：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;txt&quot;</span>, O_RDWR | O_CREAT, <span class="number">0644</span>);</span><br><span class="line">lseek(fd, <span class="number">100</span>, SEEK_SET);</span><br><span class="line">write(fd, <span class="string">&quot;\0&quot;</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>此文件大小为 101个字节。</p>
+<p>其它方式还有：</p>
+<p>ftruncate() </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">truncate</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path, <span class="keyword">off_t</span> length)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ftruncate</span><span class="params">(<span class="keyword">int</span> fd, <span class="keyword">off_t</span> length)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>ftruncate(fd, 100);</p>
+<h2 id="dup-dup2-dup3-复制一个文件描述符"><a href="#dup-dup2-dup3-复制一个文件描述符" class="headerlink" title="dup, dup2, dup3 - 复制一个文件描述符"></a>dup, dup2, dup3 - 复制一个文件描述符</h2><p>参考： <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/dup.2.html">https://man7.org/linux/man-pages/man2/dup.2.html</a></p>
+<h3 id="函数原型-5"><a href="#函数原型-5" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup</span><span class="params">(<span class="keyword">int</span> oldfd)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup2</span><span class="params">(<span class="keyword">int</span> oldfd, <span class="keyword">int</span> newfd)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _GNU_SOURCE             <span class="comment">/* See feature_test_macros(7) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span>              <span class="comment">/* Definition of O_* constants */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dup3</span><span class="params">(<span class="keyword">int</span> oldfd, <span class="keyword">int</span> newfd, <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>举例：</p>
+<p>dup() :</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;txt&quot;</span>, O_RDWR);</span><br><span class="line"><span class="keyword">int</span> new_fd = dup(fd);</span><br><span class="line">write(new_fd, <span class="string">&quot;x&quot;</span>, <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>dup2() :</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd = open(<span class="string">&quot;txt&quot;</span>, O_RDWR);</span><br><span class="line">dup2(fd, STDOUT_FILENO);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;HELLO WORLD&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210821195326502.1h80zd76196o.png" alt="image-20210821195326502"></p>
+<h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><p>暂无</p>
+<h3 id="返回值-4"><a href="#返回值-4" class="headerlink" title="返回值"></a>返回值</h3><p>成功时，这些系统调用将返回新的文件描述符。</p>
+<p>失败时，返回 -1， 设置 errno。</p>
+<h2 id="fork-创建一个子进程"><a href="#fork-创建一个子进程" class="headerlink" title="fork - 创建一个子进程"></a>fork - 创建一个子进程</h2><p>参考：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/fork.2.html">https://man7.org/linux/man-pages/man2/fork.2.html</a></p>
+<h3 id="函数原型-6"><a href="#函数原型-6" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">pid_t</span> <span class="title">fork</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>fork函数用来创建一个子进程。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210817145349164.3vfbf8e1tka0.png" alt="image-20210817145349164"></p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;start fork()\n&quot;</span>);</span><br><span class="line">    <span class="keyword">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fork error\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;child process\n&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;parent process\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;end\n&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&gt;&gt;  start fork()</span></span><br><span class="line"><span class="comment">    parent process</span></span><br><span class="line"><span class="comment">    end</span></span><br><span class="line"><span class="comment">    child process</span></span><br><span class="line"><span class="comment">    end</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h3><p>fork() 函数通过重复调用进程创建一个新的进程，这个新的进程被称为子进程，调用 fork() 的进程被称为父进程。子进程和父进程在独立的内存空间中运行。在 fork() 时，两块内存空间具有相同的内容。</p>
+<p>子进程与父进程完全相同，除了一下几点：</p>
+<ul>
+<li>子进程有它独特的进程 ID</li>
+<li>子进程的父进程ID与父进程ID相同。</li>
+</ul>
+<p>等等</p>
+<h3 id="返回值-5"><a href="#返回值-5" class="headerlink" title="返回值"></a>返回值</h3><p>成功时，在父进程中，返回子进程的 PID；在子进程中，返回0。</p>
+<p>失败时，父进程中返回 -1，并且没有子进程被创建。并且，errno 被设置。</p>
+<h2 id="getpid-getppid-获取进程标识"><a href="#getpid-getppid-获取进程标识" class="headerlink" title="getpid, getppid - 获取进程标识"></a>getpid, getppid - 获取进程标识</h2><p>参考：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/getpid.2.html">https://man7.org/linux/man-pages/man2/getpid.2.html</a></p>
+<h3 id="函数原型-7"><a href="#函数原型-7" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">pid_t</span> <span class="title">getpid</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">pid_t</span> <span class="title">getppid</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h3><p>getpid() 返回该进程的 ID（PID）。</p>
+<p>getppid() 返回该进程的父进程的 ID。</p>
+<h2 id="exec系列-执行一个文件"><a href="#exec系列-执行一个文件" class="headerlink" title="exec系列 - 执行一个文件"></a>exec系列 - 执行一个文件</h2><p>参考：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man3/exec.3.html">https://man7.org/linux/man-pages/man3/exec.3.html</a></p>
+<h3 id="函数原型-8"><a href="#函数原型-8" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">extern</span> <span class="keyword">char</span> **environ;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="comment">/*, (char *) NULL */</span>)</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execlp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="comment">/*, (char *) NULL */</span>)</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execle</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg, ...</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="comment">/*, (char *) NULL, char *const envp[] */</span>)</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execvp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">char</span> *<span class="keyword">const</span> argv[])</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">execvpe</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">char</span> *<span class="keyword">const</span> argv[], <span class="keyword">char</span> *<span class="keyword">const</span> envp[])</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以按照函数名的后缀对其进行分类：</p>
+<h4 id="l-execl-execlp-execle"><a href="#l-execl-execlp-execle" class="headerlink" title="l - execl(), execlp(), execle()"></a>l - execl(), execlp(), execle()</h4><p>这三个函数有一个共同的参数 const char *arg，这个const char *arg和后面的省略号可以看成 arg0，arg1，arg2 … … argn。这些参数构成了执行程序的参数列表。第一个参数 const char *file/pathname，约定俗成，应该指向正在执行的文件的文件名。</p>
+<p>后面的参数列表必须以空指针 NULL 结尾，用来告诉这个可变参数的函数这已经是最后一个参数了。</p>
+<p>除此之外，参数列表的第一个参数 arg0 也必须是执行的文件名。拿execlp举例来说，execlp根据环境变量中的路径找到pathname所指向的文件名，然后执行该文件，执行该文件的 argv[0]，argv[1]，… ，argv[n] 与参数列表中 arg0，arg1，arg2 … … argn 相对应，而argv[0] 正是当前执行的文件名，也就是说，除了第一个参数 const char *file/pathname 要指定文件名，第二个参数 arg0 也需要指定文件名。</p>
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">execlp(<span class="string">&quot;ls&quot;</span>, <span class="string">&quot;ls&quot;</span>, <span class="string">&quot;-l&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">execl(<span class="string">&quot;../forkProcess/out/fork&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="comment">// ----------------------------------------</span></span><br><span class="line">execlp(<span class="string">&quot;date&quot;</span>, <span class="string">&quot;date&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">execl(<span class="string">&quot;/usr/bin/date&quot;</span>, <span class="string">&quot;date&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">execle(<span class="string">&quot;/usr/bin/date&quot;</span>, <span class="string">&quot;date&quot;</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="v-execv-execvp-execvpe"><a href="#v-execv-execvp-execvpe" class="headerlink" title="v - execv(), execvp(), execvpe()"></a>v - execv(), execvp(), execvpe()</h4><h4 id="e-execle-execvpe"><a href="#e-execle-execvpe" class="headerlink" title="e - execle(), execvpe()"></a>e - execle(), execvpe()</h4><h4 id="p-execlp-execvp-execvpe"><a href="#p-execlp-execvp-execvpe" class="headerlink" title="p - execlp(), execvp(), execvpe()"></a>p - execlp(), execvp(), execvpe()</h4><h3 id="描述-4"><a href="#描述-4" class="headerlink" title="描述"></a>描述</h3><p>exec() 系列函数用一个新的进程映像替换当前进程映像。也就是说当前进程的 PID 和其父进程都没有改变，而该进程所执行的东西已经变为了 exec 所执行的文件。</p>
+<p>该系列的函数是在 execve 函数的基础上是实现的。execve 函数参考：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/execve.2.html">https://man7.org/linux/man-pages/man2/execve.2.html</a></p>
+<h3 id="返回值-6"><a href="#返回值-6" class="headerlink" title="返回值"></a>返回值</h3><p>exec() 系列函数仅在发生错误时返回 -1，并设置 errno。</p>
+<h2 id="wait-waitpid-waitid-等待进程改变状态"><a href="#wait-waitpid-waitid-等待进程改变状态" class="headerlink" title="wait, waitpid, waitid - 等待进程改变状态"></a>wait, waitpid, waitid - 等待进程改变状态</h2><p>参考：<a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/waitpid.2.html">https://man7.org/linux/man-pages/man2/waitpid.2.html</a></p>
+<h3 id="函数原型-9"><a href="#函数原型-9" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">pid_t</span> <span class="title">wait</span><span class="params">(<span class="keyword">int</span> *wstatus)</span></span>;</span><br><span class="line">       <span class="function"><span class="keyword">pid_t</span> <span class="title">waitpid</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> *wstatus, <span class="keyword">int</span> options)</span></span>;</span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">waitid</span><span class="params">(<span class="keyword">idtype_t</span> idtype, <span class="keyword">id_t</span> id, <span class="keyword">siginfo_t</span> *infop, <span class="keyword">int</span> options)</span></span>;</span><br><span class="line">                       <span class="comment">/* 这是glibc和POSIX接口;有关原始系统调用的信息，请参阅NOTES。 */</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="描述-5"><a href="#描述-5" class="headerlink" title="描述"></a>描述</h3><p>所有这些 <strong>系统调用</strong> 都是用来等待正在进行的子进程的状态发生变化的，并且获取到子进程状态发生变化的具体信息。</p>
+<p><strong>状态改变</strong> 可以被认为是：</p>
+<ul>
+<li>子进程终止</li>
+<li>子进程被一个信号中断了</li>
+<li>子进程被一个信号恢复了</li>
+</ul>
+<p>在子进程结束的情况下，父进程执行等待可以有效释放子进程的系统资源，如果没有执行等待，那么结束的子进程将以一个“僵尸”状态继续被保留。</p>
+<p>如果一个子进程改变了状态，这些调用将立即返回，否则，它们会阻塞，直到子进程改变状态或信号处理程序中断调用。</p>
+<h4 id="wait-和-waitpid"><a href="#wait-和-waitpid" class="headerlink" title="wait 和 waitpid"></a>wait 和 waitpid</h4><p>wait() <strong>系统调用</strong> 将暂停调用线程的执行，直到它的一个子线程终止。</p>
+<p>函数调用  <em>wait(int *wstatus)</em>  等同于：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">waitpid(<span class="number">-1</span>, &amp;wstatus, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>waitpid <strong>系统调用</strong> 挂起当前调用线程，直到由 <em>pid</em> 参数指定的子进程发生变化。默认情况下，waitpid 只等待终止的子进程，但此行为可以通过修改参数 <em>options</em> 改变。</p>
+<h5 id="pid-参数"><a href="#pid-参数" class="headerlink" title="pid 参数"></a>pid 参数</h5><p><em>pid</em> 的值可以是：</p>
+<ul>
+<li>&lt; -1 　　　　意思是等待任何*进程组 ID 等于 pid 绝对值的子进程</li>
+<li>-1 　　　　　意思是任何子进程</li>
+<li>0 　　　　　意思是等待任何进程组 ID 等于该调用 waitpid 的进程的进程组 ID 的子进程</li>
+<li>&gt; 0 　　　　意思是等待进程 ID 等于 pid 的子进程</li>
+</ul>
+<h5 id="options-参数"><a href="#options-参数" class="headerlink" title="options 参数"></a>options 参数</h5><p><em>options</em> 是一个组合值，包含 0 个或多个一下值：</p>
+<p>WNOHANG： 如果没有孩子死亡则立即返回</p>
+<p>WUNTRACED：</p>
+<p>。。。</p>
+<h3 id="返回值-7"><a href="#返回值-7" class="headerlink" title="返回值"></a>返回值</h3><h2 id="pipe-pipe2-创建管道（进程间通信）"><a href="#pipe-pipe2-创建管道（进程间通信）" class="headerlink" title="pipe, pipe2 - 创建管道（进程间通信）"></a>pipe, pipe2 - 创建管道（进程间通信）</h2><p>参考： <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/pipe.2.html">https://man7.org/linux/man-pages/man2/pipe.2.html</a></p>
+<h3 id="函数原型-10"><a href="#函数原型-10" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> pipefd[<span class="number">2</span>])</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _GNU_SOURCE             <span class="comment">/* See feature_test_macros(7) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span>              <span class="comment">/* Definition of O_* constants */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">       <span class="function"><span class="keyword">int</span> <span class="title">pipe2</span><span class="params">(<span class="keyword">int</span> pipefd[<span class="number">2</span>], <span class="keyword">int</span> flags)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> fd[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> x = pipe(fd);    <span class="comment">// 先</span></span><br><span class="line"><span class="keyword">int</span> pid = fork();    <span class="comment">// 后</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line"><span class="keyword">char</span> * str = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="keyword">if</span>(x == <span class="number">-1</span>) &#123;</span><br><span class="line">    perror(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;i&#x27;m parent\n&quot;</span>);</span><br><span class="line">    write(fd[<span class="number">1</span>], str, <span class="built_in">strlen</span>(str));</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;i am child\n&quot;</span>);</span><br><span class="line">    <span class="keyword">int</span> ret = read(fd[<span class="number">0</span>], buf, <span class="number">1024</span>);</span><br><span class="line">    write(STDOUT_FILENO, buf, ret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="描述-6"><a href="#描述-6" class="headerlink" title="描述"></a>描述</h3><p>pipe() 创建一个 <strong>单向</strong> 的可以用于进程间通信的数据通道。 <em>pipefd[]</em> 用来返回两个分别指向管道入端和出端的文件描述符。  <em>pipefd[0]</em> 指的是管道的读端， <em>pipefd[1]</em> 为写端。写入写端的数据会被内核缓冲，直到从读端读取数据，写入的数据只能被读取一次，不能重复读取。  </p>
+<h3 id="返回值-8"><a href="#返回值-8" class="headerlink" title="返回值"></a>返回值</h3><p>成功时，返回 0</p>
+<p>失败时，返回 -1，设置 errno，并且 <em>pipefd</em> 不会被改变。</p>
+<h2 id="mmap-munmap-映射或取消映射文件或设备到内存中（进程间通信）"><a href="#mmap-munmap-映射或取消映射文件或设备到内存中（进程间通信）" class="headerlink" title="mmap, munmap - 映射或取消映射文件或设备到内存中（进程间通信）"></a>mmap, munmap - 映射或取消映射文件或设备到内存中（进程间通信）</h2><p>参考： <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man2/mmap.2.html">https://man7.org/linux/man-pages/man2/mmap.2.html</a></p>
+<h3 id="函数原型-11"><a href="#函数原型-11" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">mmap</span><span class="params">(<span class="keyword">void</span> *addr, <span class="keyword">size_t</span> length, <span class="keyword">int</span> prot, <span class="keyword">int</span> flags,</span></span></span><br><span class="line"><span class="params"><span class="function">           <span class="keyword">int</span> fd, <span class="keyword">off_t</span> offset)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">munmap</span><span class="params">(<span class="keyword">void</span> *addr, <span class="keyword">size_t</span> length)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>举例：</p>
+<h3 id="描述-7"><a href="#描述-7" class="headerlink" title="描述"></a>描述</h3><p>mmap() 在调用进程的虚拟地址空间中创建一个新的映射。新映射的起始地址子在 <em>addr</em> 中指定。 <em>length</em> 指定映射的大小（必须大于0）。如果 <em>addr</em> 为NULL，那么内核选择(页面对齐的)地址来创建映射。这种方式创建的 mmap() 具有最好的可移植性。如果 <em>addr</em> 不为NULL，那么内核将其作为放置映射的位置的提示。 <em>offset</em> 必须是内存页（page size = 4096）的整数倍，可以通过 sysconf(_SC_PAGE_SIZE) 的返回值查看。</p>
+<p>文件映射的内容，初始化时使用从文件描述符 <em>fd</em> 引用的文件(或其他对象)的偏移量 <em>offset</em> 处开始的 <em>length</em> 字节大小的映射空间。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/image-20210822022207629.41lugd2750u0.png" alt="image-20210822022207629"></p>
+<h4 id="prot-参数"><a href="#prot-参数" class="headerlink" title="prot 参数"></a>prot 参数</h4><p><em>prot</em> 指定映射的内存保护权限。有下面几个宏：</p>
+<ul>
+<li>PROT_EXEC：映射的内存页可以执行</li>
+<li>PROT_READ：映射的内存页可以读</li>
+<li>PROT_WRITE：映射的内存页可以写</li>
+<li>PROT_NONE：映射的内存页不可访问</li>
+</ul>
+<p>可以组合，比如 PROT_READ | PROT_WRITE 。</p>
+<h4 id="flag-参数"><a href="#flag-参数" class="headerlink" title="flag 参数"></a>flag 参数</h4><p><em>flags</em> 参数确定对映射的更新是否对映射同一区域的其他进程可见，以及是否对底层文件进行更新。</p>
+<p>此行为由包含以下值之一确定：</p>
+<ul>
+<li>MAP_SHARED： 分享这个映射。映射的更新对映射同一区域的其它进程是可见的。*并且(在文件支持映射的情况下)将被传递到底层文件。</li>
+<li>MAP_PRIVATE： 创建私有的 <strong>写时拷贝</strong> 映射。</li>
+</ul>
+<p>还能由以下值的零个或多个确定：</p>
+<ul>
+<li>MAP_32BIT</li>
+<li>MAP_ANON</li>
+</ul>
+<p>。。。</p>
+<h3 id="返回值-9"><a href="#返回值-9" class="headerlink" title="返回值"></a>返回值</h3><p>mmap() :</p>
+<p>成功时，返回一个指向映射区域的指针。</p>
+<p>失败时，值 MAP_FAILED （类型为 （void *）-1 ），并设置 errno。</p>
+<p>munmap()：</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/c/" rel="tag"># c</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/11/%E5%86%99%E7%BB%99%E5%B0%8F%E7%99%BD%E7%9C%8B%E7%9A%84makefile%E6%95%99%E7%A8%8B/" rel="prev" title="写给小白看的makefile教程（入门）">
+                  <i class="fa fa-chevron-left"></i> 写给小白看的makefile教程（入门）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/04/09/vlan-%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" rel="next" title="VLAN 技术学习总结">
+                  VLAN 技术学习总结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雨寒</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"rainchill/Blog-Comment-System","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

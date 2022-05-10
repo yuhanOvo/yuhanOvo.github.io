@@ -7,7 +7,7 @@ title: 雨寒的个人站
 subtitle: 'Just 4 fun'
 description: ''
 keywords:
-author: yuhanOvo
+author: 雨寒
 language: zh-CN
 timezone: 'UTC'
 
@@ -104,5 +104,5 @@ theme: next
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
     type: git
-    repo: https://github.com/yuhanOvo/yuhanOvo.github.io.git
+    repo: https://github.com/rainchill/rainchill.github.io.git
     branch: master

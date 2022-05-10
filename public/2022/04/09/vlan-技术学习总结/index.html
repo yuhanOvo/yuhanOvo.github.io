@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.yuhanovo.xyz","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="VLAN技术学习总结基本概念虚拟局域网技术（Virtual Local Area Network 简写 VLAN）将一个交换式LAN划分成多个相互独立的虚拟物理网络，这些逻辑上虚拟的物理网络称为VLAN，每一个VLAN就是一个广播域，不同VLAN之间在逻辑上相互隔离，不同VLAN成员不能在二层直接通信，VLAN之间的通信只能通过三层或者更高层实现。 划分VLAN是为了隔离广播域，其标准为IEEE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VLAN 技术学习总结">
+<meta property="og:url" content="https://www.yuhanovo.xyz/2022/04/09/vlan-%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="雨寒的个人站">
+<meta property="og:description" content="VLAN技术学习总结基本概念虚拟局域网技术（Virtual Local Area Network 简写 VLAN）将一个交换式LAN划分成多个相互独立的虚拟物理网络，这些逻辑上虚拟的物理网络称为VLAN，每一个VLAN就是一个广播域，不同VLAN之间在逻辑上相互隔离，不同VLAN成员不能在二层直接通信，VLAN之间的通信只能通过三层或者更高层实现。 划分VLAN是为了隔离广播域，其标准为IEEE">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-01_22-41-55.5l49rq23j9s0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-01_21-21-03.3pwinylpm1s0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_00-42-32.1l22noqh4n6o.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_01-25-22.5oixo0nq2h4.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/VLAN技术学习总结/image_2022-04-09_02-02-37.1ke1r07mwyjk.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_02-09-24.40bymf2gl540.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_02-30-29.60kvzdtufb00.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/IMG_0964(20220409-025615).mj9eh85qyls.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/VLAN技术学习总结/image_2022-04-09_03-28-53.50wbrt7hwfg0.webp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/IMG_0965(20220409-035030).6amubcp68rs0.PNG">
+<meta property="article:published_time" content="2022-04-09T03:59:31.000Z">
+<meta property="article:modified_time" content="2022-05-10T17:07:11.149Z">
+<meta property="article:author" content="雨寒">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-01_22-41-55.5l49rq23j9s0.png">
+
+
+<link rel="canonical" href="https://www.yuhanovo.xyz/2022/04/09/vlan-%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.yuhanovo.xyz/2022/04/09/vlan-%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/","path":"2022/04/09/vlan-技术学习总结/","title":"VLAN 技术学习总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>VLAN 技术学习总结 | 雨寒的个人站</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">雨寒的个人站</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Just 4 fun</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">VLAN技术学习总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">1.2.</span> <span class="nav-text">VLAN标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN%E8%AE%BE%E5%A4%87"><span class="nav-number">1.3.</span> <span class="nav-text">VLAN设备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#VLAN%E7%9F%A5%E6%99%93%E8%AE%BE%E5%A4%87-%EF%BC%88VLAN-aware%EF%BC%89"><span class="nav-number">1.3.1.</span> <span class="nav-text">VLAN知晓设备 （VLAN aware）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VLAN%E9%9D%9E%E7%9F%A5%E6%99%93%E8%AE%BE%E5%A4%87%EF%BC%88VLAN-unaware%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">VLAN非知晓设备（VLAN unaware）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN%E9%93%BE%E8%B7%AF"><span class="nav-number">1.4.</span> <span class="nav-text">VLAN链路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN%E5%B8%A7%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">VLAN帧格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%8D%E8%B0%88Trunk-Link"><span class="nav-number">1.6.</span> <span class="nav-text">再谈Trunk Link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN%E9%97%B4%E9%80%9A%E4%BF%A1%E6%A1%88%E4%BE%8B"><span class="nav-number">1.7.</span> <span class="nav-text">VLAN间通信案例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PC1-ping-PC2%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8C%85%E8%BF%BD%E8%B8%AA%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">1.7.1.</span> <span class="nav-text">PC1 ping PC2的数据包追踪流程图</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="雨寒"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">雨寒</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rainchill" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rainchill" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.yuhanovo.xyz/2022/04/09/vlan-%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="雨寒">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="雨寒的个人站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          VLAN 技术学习总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-09 03:59:31" itemprop="dateCreated datePublished" datetime="2022-04-09T03:59:31Z">2022-04-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-05-10 17:07:11" itemprop="dateModified" datetime="2022-05-10T17:07:11Z">2022-05-10</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="VLAN技术学习总结"><a href="#VLAN技术学习总结" class="headerlink" title="VLAN技术学习总结"></a>VLAN技术学习总结</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>虚拟局域网技术（Virtual Local Area Network 简写 VLAN）将一个<strong>交换式LAN</strong>划分成多个相互独立的虚拟物理网络，这些逻辑上虚拟的物理网络称为VLAN，每一个VLAN就是一个广播域，不同VLAN之间在逻辑上相互隔离，不同VLAN成员不能在二层直接通信，VLAN之间的通信只能通过三层或者更高层实现。</p>
+<p>划分VLAN是为了隔离广播域，其标准为IEEE 802.1Q。</p>
+<span id="more"></span>
+
+<h3 id="VLAN标识符"><a href="#VLAN标识符" class="headerlink" title="VLAN标识符"></a>VLAN标识符</h3><p>一个VLAN由一个VLAN ID（VLAN Identifier）唯一标识。VLAN ID 简写 VID。</p>
+<p>VID值由一个12比特的无符号数表示，其理论有效范围为 1 到 4096 （$2^{12}$)，具体设备支持的VID范围可能更小。</p>
+<p>默认VID值为1，用户不能指派他用。当没有划分VLAN时，所有站点都属于VLAN1，通常VLAN 1作为管理VLAN使用。当然，默认VLAN ID可以进行更改，不一定非要是1。</p>
+<h3 id="VLAN设备"><a href="#VLAN设备" class="headerlink" title="VLAN设备"></a>VLAN设备</h3><p>VLAN设备类型分为 VLAN知晓设备 和 VLAN非知晓设备。</p>
+<h4 id="VLAN知晓设备-（VLAN-aware）"><a href="#VLAN知晓设备-（VLAN-aware）" class="headerlink" title="VLAN知晓设备 （VLAN aware）"></a>VLAN知晓设备 （VLAN aware）</h4><p>能意识到VLAN的存在。</p>
+<p>识别VLAN加标帧（802.1Q帧）并予以处理，同时也能处理非加标帧（基本MAC帧）。</p>
+<p>VLAN知晓设备通常是：支持VLAN协议的交换机 或者 支持VLAN协议的服务器。</p>
+<h4 id="VLAN非知晓设备（VLAN-unaware）"><a href="#VLAN非知晓设备（VLAN-unaware）" class="headerlink" title="VLAN非知晓设备（VLAN unaware）"></a>VLAN非知晓设备（VLAN unaware）</h4><p>不能意识到VLAN的存在。</p>
+<p>不能识别VLAN加标帧。</p>
+<p>VLAN知晓设备可以是：不支持VLAN协议的交换机（其对VLAN加标帧按照基本MAC帧进行处理） 或者 普通PC机（其不能识别加标帧，将直接丢弃加标帧）。</p>
+<h3 id="VLAN链路"><a href="#VLAN链路" class="headerlink" title="VLAN链路"></a>VLAN链路</h3><p>VLAN不同链路对应不同端口。VLAN链路包括 <strong>主干链路（Trunk Link）</strong>、<strong>接入链路（Access Link）</strong>、<strong>混合链路（Hybrid Link）</strong>。其对应的端口分别为 <strong>Trunk Port</strong>、<strong>Access Port</strong>、<strong>Hybrid Port</strong>。</p>
+<p><strong>Trunk</strong></p>
+<p>Trunk Link 通常用于互连VLAN知晓设备。Trunk Port 是连接 Trunk Link 的两端口，Trunk Port收发VLAN加标帧。一个Trunk Port可以同时属于多个VLAN（这有什么好处？我们后面讲）。</p>
+<p><strong>Access</strong></p>
+<p>Access Link通常用于（VLAN知晓设备）将非知晓设备接入VLAN。Access Port 是VLAN<strong>知晓</strong>设备上连接Access Link的端口。（注意这里是VLAN知晓设备的端口，而不像之前Trunk是两端口都是Trunk Port）。</p>
+<p>Access Port只能收发无标识帧。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-01_22-41-55.5l49rq23j9s0.png" alt="image_2022-04-01_22-41-55"></p>
+<p><strong>Hybrid</strong></p>
+<p>Hybrid Link能同时连接VLAN知晓设备和VLAN非知晓设备。Hybrid Port 可以接收<strong>不同</strong>VLAN的帧为它们带上对应的 Tag，也能<strong>发送</strong>不同VLAN带上Tag的帧或者是不同VLAN不带Tag的帧。</p>
+<p>这张<a target="_blank" rel="noopener" href="https://www.utepo.net/article/detail/251.html">图</a>可以方便理解Hybrid Link和Port</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-01_21-21-03.3pwinylpm1s0.png" alt="image_2022-04-01_21-21-03"></p>
+<p>蓝色端口被配置为Hybrid Port，其下的不同的VLAN发送帧到达这个端口时，Hybrid Port根据不同帧给它们打上不同的Tag。而Hybrid Port向下发送帧时，可以根据配置给某些VLAN发送带Tag的帧，给某些VLAN发送不带Tag的帧。</p>
+<p>Hybrid Port的存在主要是为VLAN知晓设备的一个转发端口接到不同VLAN里面而存在的。</p>
+<p>下层的VLAN由于受限集线器（Hub）的存在并未实现隔离广播域的效果。</p>
+<p>Hybrid和Trunk Port都能同时配置多个VLAN，Hybrid Link通常使用共享链路，而Trunk Link使用点到点全双工链路。</p>
+<h3 id="VLAN帧格式"><a href="#VLAN帧格式" class="headerlink" title="VLAN帧格式"></a>VLAN帧格式</h3><p>VLAN帧和以太网基本MAC帧的唯一不同在于VLAN帧有一个4字节的Tag部分。下图中未标注单位均为字节。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_00-42-32.1l22noqh4n6o.png" alt="image_2022-04-09_00-42-32"></p>
+<p><strong>TPID：</strong>标签协议标识符（Tag Protocol Identifier），用以标识加标帧的类型，802.1Q Tag帧取值固定为0x8100，极VLAN协议</p>
+<p><strong>P：</strong>优先级（Priority）。0~7共8个等级，优先级高的帧先发出。不同设备支持优先级的等级数有差异。</p>
+<p><strong>CFI：</strong>标准格式指示位（Canonical Format Indicator），表示MAC地址是否是经典格式。CFI为0说明是标准格式，CFI为1表示为非标准格式。用于区分以太网帧、FDDI（Fiber Distributed Digital Interface）帧和令牌环网帧。在以太网中，CFI的值为0。</p>
+<p><strong>VLAN ID：</strong>VLAN Identifier，有效值0~4095。</p>
+<p>0：VLAN ID = null，该帧为用户优先级帧（仅使用优先级P的功能），非VLAN加标帧。</p>
+<p>1：默认VLAN ID，该默认VLAN ID可以改变成不是1的数字。</p>
+<p>4095：保留。</p>
+<p>所以VLAN ID的有效范围：1~4094。</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>VLAN加标帧允许的最长帧大小超过基本MAC帧长的1518字节，其最长能允许1522（1518+4）字节，而最小帧长字节与基本MAC帧最小帧长相同，均为64字节。</p>
+<p>值得注意的是，以上帧格式是802.1Q的封装格式，而思科交换机使用的是其专有协议**<a target="_blank" rel="noopener" href="https://www.cisco.com/c/zh_cn/support/docs/lan-switching/8021q/17056-741-4.html">ISL</a>**，此种封装只能在思科设备间使用，若在组网时使用了思科还有其他品牌的设备一定要注意把思科交换机的VLAN封装格式更换成802.1Q封装！</p>
+<p>我之前就在组网的时候遇到了这个问题，琢磨半天也想不出问题在哪里，最后发现是思科交换机的VLAN帧封装的问题。。</p>
+<p>在思科交换机中开启802.1Q封装解决问题：</p>
+<p><code>Switch(config-if)#switchport trunk encapsulation dot1q</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_01-25-22.5oixo0nq2h4.webp" alt="image_2022-04-09_01-25-22"></p>
+<p>对于上面的802.1Q封装，VLAN支持三种帧类型。</p>
+<p>无标帧，即基本MAC帧</p>
+<p>优先级加标帧，无有效VID的802.1Q帧</p>
+<p>VLAN加标帧，既有优先级又有有效VID的802.1Q帧</p>
+<h3 id="再谈Trunk-Link"><a href="#再谈Trunk-Link" class="headerlink" title="再谈Trunk Link"></a>再谈Trunk Link</h3><p>为什么一个Trunk Port要同时属于多个VLAN？</p>
+<p>事实上，在不使用Trunk的情况下，VLAN也完全可以实现，甚至在这种情况下实现路由功能的设备（可以是三层交换机也可以是路由器）可以是VLAN非知晓设备。</p>
+<p>具体拓扑如下：</p>
+<img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/VLAN技术学习总结/image_2022-04-09_02-02-37.1ke1r07mwyjk.webp" alt="image_2022-04-09_02-02-37" style="zoom:50%;" />
+
+<p>这种情况下，有多少个VLAN就需要L2 SW和L3 SW之间有多少个连接线，显然没有必要这样做，Trunk Link使得L2 SW和L3 SW之间只需要一条线。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_02-09-24.40bymf2gl540.webp" alt="image_2022-04-09_02-09-24"></p>
+<h3 id="VLAN间通信案例"><a href="#VLAN间通信案例" class="headerlink" title="VLAN间通信案例"></a>VLAN间通信案例</h3><p>下面结合Packet Tracer来实现VLAN间通信的仿真。</p>
+<p>拓扑如下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/image_2022-04-09_02-30-29.60kvzdtufb00.webp" alt="image_2022-04-09_02-30-29"></p>
+<p>网关和ip地址在每台PC上静态配置。</p>
+<p>此时VLAN10内的PC可以互ping，VLAN20内的设备可以互ping，又因为双方不在同一个子网规划下，且此时L3 SW未绑定它俩的网关ip地址，VLAN10和VLAN20不能互ping。（注意此时只是配置了四台PC的ip和网关，VLAN什么的还没有配置）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/IMG_0964(20220409-025615).mj9eh85qyls.webp" alt="IMG_0964(20220409-025615)"></p>
+<p>接下来配置L2 SW（access port）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Switch&gt;enable </span><br><span class="line">Switch#config t</span><br><span class="line">Enter configuration commands, one per line.  End with CNTL/Z.</span><br><span class="line">Switch(config)#vlan 10 </span><br><span class="line">Switch(config-vlan)#exit </span><br><span class="line">Switch(config)#vlan 20</span><br><span class="line">Switch(config-vlan)#exit</span><br><span class="line">Switch(config)#int f0/1 </span><br><span class="line">Switch(config-if)#switchport mode access </span><br><span class="line">Switch(config-if)#switchport access vlan 10</span><br><span class="line">Switch(config-if)#exit</span><br><span class="line">Switch(config)#int f0/3</span><br><span class="line">Switch(config-if)#switchport mode access</span><br><span class="line">Switch(config-if)#switchport access vlan 10</span><br><span class="line">Switch(config-if)#exit</span><br><span class="line">Switch(config)#int f0/2</span><br><span class="line">Switch(config-if)#switchport mode access </span><br><span class="line">Switch(config-if)#switchport access vlan 20</span><br><span class="line">Switch(config-if)#exit</span><br><span class="line">Switch(config)#int f0/4</span><br><span class="line">Switch(config-if)#switchport mode access </span><br><span class="line">Switch(config-if)#switchport access vlan 20</span><br><span class="line">Switch(config-if)#exit</span><br></pre></td></tr></table></figure>
+
+<p>show vlan 检测配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Switch#show vlan</span><br><span class="line"></span><br><span class="line">VLAN Name                             Status    Ports</span><br><span class="line">---- -------------------------------- --------- -------------------------------</span><br><span class="line">10   VLAN0010                         active    Fa0/1, Fa0/3</span><br><span class="line">20   VLAN0020                         active    Fa0/2, Fa0/4</span><br></pre></td></tr></table></figure>
+
+<p>接下来配置trunk port，此时需要配置L2 SW的 f0/5 和 L3 SW的 f0/1</p>
+<p>配置L2 SW f0/5</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)#int f0/5</span><br><span class="line">Switch(config-if)#switchport mode trunk </span><br><span class="line">%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/5, changed state to down</span><br><span class="line"></span><br><span class="line">%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/5, changed state to up</span><br></pre></td></tr></table></figure>
+
+<p>配置L3 SW f0/1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)#int f0/1</span><br><span class="line">Switch(config-if)#switchport mode trunk</span><br><span class="line">Command rejected: An interface whose trunk encapsulation is &quot;Auto&quot; can not be configured to &quot;trunk&quot; mode.</span><br><span class="line"># 没有指定端口的VLAN封装类型</span><br><span class="line">Switch(config-if)#switchport trunk encapsulation dot1q #指定为802.1Q封装</span><br><span class="line">Switch(config-if)#switchport mode trunk #设置端口为Trunk Port</span><br><span class="line">Switch(config-if)#exit</span><br><span class="line">Switch(config)#vlan 10</span><br><span class="line">Switch(config-vlan)#exit</span><br><span class="line">Switch(config)#vlan 20</span><br><span class="line">Switch(config-vlan)#exit</span><br><span class="line">Switch(config)#int vlan 10</span><br><span class="line">Switch(config-if)#</span><br><span class="line">%LINK-5-CHANGED: Interface Vlan10, changed state to up</span><br><span class="line"></span><br><span class="line">%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan10, changed state to up</span><br><span class="line"></span><br><span class="line">Switch(config-if)#ip address 192.168.10.254 255.255.255.0</span><br><span class="line">Switch(config-if)#int vlan 20</span><br><span class="line">Switch(config-if)#</span><br><span class="line">%LINK-5-CHANGED: Interface Vlan20, changed state to up</span><br><span class="line"></span><br><span class="line">%LINEPROTO-5-UPDOWN: Line protocol on Interface Vlan20, changed state to up</span><br><span class="line"></span><br><span class="line">Switch(config-if)#ip address 192.168.20.254 255.255.255.0</span><br><span class="line">Switch(config-if)#exit</span><br><span class="line">Switch(config)#</span><br><span class="line">Switch#</span><br><span class="line">%SYS-5-CONFIG_I: Configured from console by console</span><br><span class="line"></span><br><span class="line">Switch#show ip route </span><br><span class="line">Default gateway is not set</span><br><span class="line"></span><br><span class="line">Host               Gateway           Last Use    Total Uses  Interface</span><br><span class="line">ICMP redirect cache is empty</span><br><span class="line">	</span><br><span class="line">Switch#config t</span><br><span class="line">Enter configuration commands, one per line.  End with CNTL/Z.</span><br><span class="line">Switch(config)#ip routing #开启路由</span><br><span class="line">Switch(config)#exit</span><br><span class="line">Switch#show ip route </span><br><span class="line">Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP</span><br><span class="line">       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area</span><br><span class="line">       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2</span><br><span class="line">       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP</span><br><span class="line">       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area</span><br><span class="line">       * - candidate default, U - per-user static route, o - ODR</span><br><span class="line">       P - periodic downloaded static route</span><br><span class="line"></span><br><span class="line">Gateway of last resort is not set</span><br><span class="line"></span><br><span class="line">C    192.168.10.0/24 is directly connected, Vlan10</span><br><span class="line">C    192.168.20.0/24 is directly connected, Vlan20</span><br></pre></td></tr></table></figure>
+
+<p>此时PC1 ping PC2</p>
+<img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/VLAN技术学习总结/image_2022-04-09_03-28-53.50wbrt7hwfg0.webp" alt="image_2022-04-09_03-28-53" style="zoom:50%;" />
+
+<p>可以看到已经通了。</p>
+<h4 id="PC1-ping-PC2的数据包追踪流程图"><a href="#PC1-ping-PC2的数据包追踪流程图" class="headerlink" title="PC1 ping PC2的数据包追踪流程图"></a>PC1 ping PC2的数据包追踪流程图</h4><p><img src="https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/%E6%96%87%E7%AB%A0/VLAN%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/IMG_0965(20220409-035030).6amubcp68rs0.PNG" alt="IMG_0965(20220409-035030)"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/16/linux-c-%E5%9F%BA%E6%9C%AC%E5%87%BD%E6%95%B0/" rel="prev" title="linux c 基本函数">
+                  <i class="fa fa-chevron-left"></i> linux c 基本函数
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">雨寒</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"rainchill/Blog-Comment-System","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
