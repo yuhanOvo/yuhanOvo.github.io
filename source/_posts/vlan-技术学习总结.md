@@ -81,13 +81,13 @@ VLAN帧和以太网基本MAC帧的唯一不同在于VLAN帧有一个4字节的Ta
 
 ![image_2022-04-09_00-42-32](https://cdn.jsdelivr.net/gh/yuhanOvo/image-hosting@master/文章/VLAN技术学习总结/image_2022-04-09_00-42-32.1l22noqh4n6o.png)
 
-**TPID：**标签协议标识符（Tag Protocol Identifier），用以标识加标帧的类型，802.1Q Tag帧取值固定为0x8100，极VLAN协议
+**TPID**：标签协议标识符（Tag Protocol Identifier），用以标识加标帧的类型，802.1Q Tag帧取值固定为0x8100，极VLAN协议
 
-**P：**优先级（Priority）。0~7共8个等级，优先级高的帧先发出。不同设备支持优先级的等级数有差异。
+**P**：优先级（Priority）。0~7共8个等级，优先级高的帧先发出。不同设备支持优先级的等级数有差异。
 
-**CFI：**标准格式指示位（Canonical Format Indicator），表示MAC地址是否是经典格式。CFI为0说明是标准格式，CFI为1表示为非标准格式。用于区分以太网帧、FDDI（Fiber Distributed Digital Interface）帧和令牌环网帧。在以太网中，CFI的值为0。
+**CFI**：标准格式指示位（Canonical Format Indicator），表示MAC地址是否是经典格式。CFI为0说明是标准格式，CFI为1表示为非标准格式。用于区分以太网帧、FDDI（Fiber Distributed Digital Interface）帧和令牌环网帧。在以太网中，CFI的值为0。
 
-**VLAN ID：**VLAN Identifier，有效值0~4095。
+**VLAN ID**：VLAN Identifier，有效值0~4095。
 
 0：VLAN ID = null，该帧为用户优先级帧（仅使用优先级P的功能），非VLAN加标帧。
 
@@ -101,7 +101,7 @@ VLAN帧和以太网基本MAC帧的唯一不同在于VLAN帧有一个4字节的Ta
 
 VLAN加标帧允许的最长帧大小超过基本MAC帧长的1518字节，其最长能允许1522（1518+4）字节，而最小帧长字节与基本MAC帧最小帧长相同，均为64字节。
 
-值得注意的是，以上帧格式是802.1Q的封装格式，而思科交换机使用的是其专有协议**[ISL](https://www.cisco.com/c/zh_cn/support/docs/lan-switching/8021q/17056-741-4.html)**，此种封装只能在思科设备间使用，若在组网时使用了思科还有其他品牌的设备一定要注意把思科交换机的VLAN封装格式更换成802.1Q封装！
+值得注意的是，以上帧格式是802.1Q的封装格式，而思科交换机使用的是其专有协议[**ISL**](https://www.cisco.com/c/zh_cn/support/docs/lan-switching/8021q/17056-741-4.html)，此种封装只能在思科设备间使用，若在组网时使用了思科还有其他品牌的设备一定要注意把思科交换机的VLAN封装格式更换成802.1Q封装！
 
 我之前就在组网的时候遇到了这个问题，琢磨半天也想不出问题在哪里，最后发现是思科交换机的VLAN帧封装的问题。。
 
@@ -231,17 +231,17 @@ Switch(config)#
 Switch#
 %SYS-5-CONFIG_I: Configured from console by console
 
-Switch#show ip route 
+Switch#show ip route
 Default gateway is not set
 
 Host               Gateway           Last Use    Total Uses  Interface
 ICMP redirect cache is empty
-	
+
 Switch#config t
 Enter configuration commands, one per line.  End with CNTL/Z.
 Switch(config)#ip routing #开启路由
 Switch(config)#exit
-Switch#show ip route 
+Switch#show ip route
 Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
        N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
