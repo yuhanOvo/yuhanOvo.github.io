@@ -5,6 +5,19 @@ tags:
 mathjax: true
 ---
 
+- [VLAN技术学习总结](#vlan技术学习总结)
+  - [基本概念](#基本概念)
+  - [VLAN标识符](#vlan标识符)
+  - [VLAN设备](#vlan设备)
+    - [VLAN知晓设备 （VLAN aware）](#vlan知晓设备-vlan-aware)
+    - [VLAN非知晓设备（VLAN unaware）](#vlan非知晓设备vlan-unaware)
+  - [VLAN链路](#vlan链路)
+  - [VLAN帧格式](#vlan帧格式)
+    - [注意](#注意)
+  - [再谈Trunk Link](#再谈trunk-link)
+  - [VLAN间通信案例](#vlan间通信案例)
+    - [PC1 ping PC2的数据包追踪流程图](#pc1-ping-pc2的数据包追踪流程图)
+
 ## VLAN技术学习总结
 
 ### 基本概念
