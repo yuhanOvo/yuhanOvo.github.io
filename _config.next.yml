@@ -261,7 +261,7 @@ reward_settings:
 
 reward:
   #wechatpay: /images/wechatpay.png
-  alipay: https://raw.githubusercontent.com/yuhanOvo/Img/master/2021/08/IMG_9912(20210814-215915).JPG
+  #alipay: https://raw.githubusercontent.com/yuhanOvo/Img/master/2021/08/IMG_9912(20210814-215915).JPG
   #alipay: /images/alipay.png
   #paypal: /images/paypal.png
   #bitcoin: /images/bitcoin.png
