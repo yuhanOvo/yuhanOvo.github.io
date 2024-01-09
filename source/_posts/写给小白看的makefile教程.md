@@ -1,6 +1,7 @@
 ---
 title: 写给小白看的makefile教程（入门）
 date: 2021-08-10 16:44:00
+updated: 2021-08-10 16:44:00
 categories: 
   - linux学习
 tags:

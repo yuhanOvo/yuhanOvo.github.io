@@ -1,6 +1,7 @@
 ---
 title: linux c 基本函数
 date: 2021-08-15 16:55:07
+updated: 2021-08-15 16:55:07
 categories: 
   - linux学习
 tags:
